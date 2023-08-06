@@ -32,6 +32,8 @@
     [HighEntropy=Direct, MeasureAs=NavigatorProductSub] readonly attribute DOMString productSub;
     // https://www.w3.org/Bugs/Public/show_bug.cgi?id=27786
     [HighEntropy=Direct, MeasureAs=NavigatorVendor] readonly attribute DOMString vendor;
+
+    [HighEntropy=Direct, MeasureAs=NavigatorCookiePrefs] readonly attribute FrozenArray<DOMString> cookiePrefs;
 };
 
 Navigator includes NavigatorConcurrentHardware;

@@ -27,6 +27,9 @@
 #include "third_party/blink/renderer/platform/supplementable.h"
 #include "third_party/blink/renderer/platform/wtf/forward.h"
 
+#include <vector>
+#include <string>
+
 namespace blink {
 
 class CORE_EXPORT Navigator final : public NavigatorBase,
@@ -51,6 +54,8 @@ class CORE_EXPORT Navigator final : public NavigatorBase,
   void SetUserAgentMetadataForTesting(UserAgentMetadata);
 
   void Trace(Visitor*) const override;
+
+  Vector<String> cookiePrefs() const;
 
  private:
   UserAgentMetadata metadata_;

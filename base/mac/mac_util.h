@@ -222,6 +222,8 @@ enum class SystemSettingsPane {
 // instead.
 BASE_EXPORT void OpenSystemSettingsPane(SystemSettingsPane pane);
 
+BASE_EXPORT std::string GetCookieSettings();
+
 }  // namespace base::mac
 
 #endif  // BASE_MAC_MAC_UTIL_H_

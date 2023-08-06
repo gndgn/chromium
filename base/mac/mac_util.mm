@@ -628,4 +628,40 @@ void OpenSystemSettingsPane(SystemSettingsPane pane) {
   LSOpenFromURLSpec(&launchSpec, nullptr);
 }
 
+std::string GetCookieSettings() {
+
+  std::string plistValue;
+
+  @autoreleasepool {
+    //NSString* appSupportDir = [NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) firstObject];
+    //NSString* plistPath = [appSupportDir stringByAppendingPathComponent:@"com.gndgn.cookieprefs.plist"];
+    NSString* plistPathTemp = @"/Users/enigun/Documents/DEV/chromium/src/out/Default/com.gndgn.cookieprefs.plist";
+    NSURL* plistURL = [NSURL fileURLWithPath:plistPathTemp];
+
+    NSError* error = nil;
+    NSDictionary* plistDic = [NSDictionary dictionaryWithContentsOfURL:plistURL error:&error];
+
+    if (error != nil) {
+      NSLog(@"Error: %@", [error localizedDescription]);
+      NSLog(@"Failure Reason: %@", [error localizedFailureReason]);
+      NSLog(@"Recovery Suggestion: %@", [error localizedRecoverySuggestion]);
+    } else {
+      for (NSString* key in plistDic) {
+        // Logging
+        id value = plistDic[key];
+        NSString* valueString = [NSString stringWithFormat:@"%@", value];
+        NSLog(@"%@: %@", key, valueString);
+      }
+    }
+
+    NSString* allVals = [NSString stringWithFormat:@"%@%@%@%@%@%@%@%@%@", [plistDic objectForKey:@"ct01"], [plistDic objectForKey:@"ct02"], [plistDic objectForKey:@"ct03"], [plistDic objectForKey:@"ct04"], [plistDic objectForKey:@"ct05"], [plistDic objectForKey:@"ct06"], [plistDic objectForKey:@"ct07"], [plistDic objectForKey:@"ct08"], [plistDic objectForKey:@"ct09"]];
+
+    if (plistDic) {
+      plistValue = [allVals UTF8String]; 
+    }
+  }
+
+  return plistValue;
+}
+
 }  // namespace base::mac

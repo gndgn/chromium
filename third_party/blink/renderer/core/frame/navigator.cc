@@ -37,6 +37,16 @@
 #include "third_party/blink/renderer/platform/instrumentation/memory_pressure_listener.h"
 #include "third_party/blink/renderer/platform/language.h"
 
+#include "services/network/public/cpp/features.h"
+#include "third_party/blink/renderer/core/frame/web_feature.h"
+#include "third_party/blink/renderer/platform/wtf/text/string_builder.h"
+#include <vector>
+#include <string> 
+
+#if BUILDFLAG(IS_APPLE)
+#include "base/mac/mac_util.h"
+#endif
+
 namespace blink {
 
 Navigator::Navigator(ExecutionContext* context) : NavigatorBase(context) {}
@@ -103,6 +113,50 @@ String Navigator::GetAcceptLanguages() {
 void Navigator::Trace(Visitor* visitor) const {
   NavigatorBase::Trace(visitor);
   Supplementable<Navigator>::Trace(visitor);
+}
+
+Vector<String> Navigator::cookiePrefs() const {
+  std::string input = base::mac::GetCookieSettings();
+  std::string s1;
+  s1.push_back(input[0]);
+  s1.push_back(input[1]);
+  s1.push_back(input[2]);
+  std::string s2;
+  s2.push_back(input[3]);
+  s2.push_back(input[4]);
+  s2.push_back(input[5]);
+  std::string s3;
+  s3.push_back(input[6]);
+  s3.push_back(input[7]);
+  s3.push_back(input[8]);
+  std::string s4;
+  s4.push_back(input[9]);
+  s4.push_back(input[10]);
+  s4.push_back(input[11]);
+  std::string s5;
+  s5.push_back(input[12]);
+  s5.push_back(input[13]);
+  s5.push_back(input[14]);
+  std::string s6;
+  s6.push_back(input[15]);
+  s6.push_back(input[16]);
+  s6.push_back(input[17]);
+  std::string s7;
+  s7.push_back(input[18]);
+  s7.push_back(input[19]);
+  s7.push_back(input[20]);
+  std::string s8;
+  s8.push_back(input[21]);
+  s8.push_back(input[22]);
+  s8.push_back(input[23]);
+  std::string s9;
+  s9.push_back(input[24]);
+  s9.push_back(input[25]);
+  s9.push_back(input[26]);
+
+  Vector<String> cPrefs = Vector<String>({"ct01=" + String(s1), "ct02=" + String(s2), "ct03=" + String(s3), "ct04=" + String(s4), "ct05=" + String(s5), "ct06=" + String(s6), "ct07=" + String(s7), "ct08=" + String(s8), "ct09=" + String(s9)});
+
+  return cPrefs;
 }
 
 }  // namespace blink
